@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ document.title }}</title>
+</head>
+<body>
+    <h1>{{ document.title }}</h1>
+    <p>{{ document.description }}</p>
+    <h2>Associated requirements</h2>
+    <ul>
+        {% for requirement in requirements %}
+        <li>
+            <a href="{% url 'requirement_detail' requirement.pk %}">{{ requirement.title }} </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'document_edit' document.pk %}?next=document_list">Edit</a>
+    <a href="{% url 'document_delete' document.pk %}">Delete</a>
+    <a href="{% url 'requirement_list' %}">Back to list</a>
+</body>
+</html>

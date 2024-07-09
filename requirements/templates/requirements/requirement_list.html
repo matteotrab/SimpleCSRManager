@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Requirements List</title>
+</head>
+<body>
+    <h1>Requirements</h1>
+    <table>
+        <tr>
+            <th>Requirement</th>
+            <th>Documents</th>
+            <th>Document Status</th>
+            <th>Requirement Status</th>
+        </tr>
+        {% for requirement in requirements %}
+        <tr>
+            <td><a href="{% url 'requirement_detail' requirement.pk %}">{{ requirement.title }}</a></td>
+            <td>
+                <ul>
+                    {% for document in requirement.documents.all %}
+                    <li><a href="{% url 'document_detail' document.pk %}">{{ document.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {% for document in requirement.documents.all %}
+                    <!--<li>{{ document.isValidated }}</li>-->
+                    <li>{% if document.isValidated %}Validated{% else %}Not Validated{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    {% if requirement.isCompliant %}Compliant{% else %}Not Compliant{% endif %}
+                </ul>
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'requirement_new' %}">Add New Requirement</a> -
+    <a href="{% url 'document_new' %}">Add New Document</a> -
+    <a href="{% url 'document_list' %}">Manage documents</a>
+</body>
+</html>

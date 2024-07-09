@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Documents List</title>
+</head>
+<body>
+    <h1>Documents</h1>
+    <table>
+        <tr>
+            <th>Documents</th>
+            <th>Document Status</th>
+            <th> </th>
+        </tr>
+        {% for document in documents %}
+        <tr>
+            <td><a href="{% url 'document_detail' document.pk %}">{{ document.title }}</a></td>
+            <td>
+                <ul>
+                    {% if document.isValidated %}Validated{% else %}Not Validated{% endif %}                 
+                </ul>
+            </td>
+            <td>
+            <a href="{% url 'document_edit' document.pk %}?next=document_list">Edit</a>
+            </td>
+            <td>
+            <form action="{% url 'toggle_validation_status' document.pk %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Change Validation Status</button>
+            </form>
+            </td>
+            <td>
+            <a href="{% url 'document_delete' document.pk %}?next=document_list">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'document_new' %}?next=document_list">Add New Document</a> -
+    <a href="{% url 'requirement_list' %}">Back to home page</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if form.instance.pk %}Edit{% else %}New{% endif %} Document</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit{% else %}New{% endif %} Document</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{{ next }}">
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url next %}">Cancel</a>
+</body>
+</html>

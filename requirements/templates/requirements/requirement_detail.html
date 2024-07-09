@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ requirement.title }}</title>
+</head>
+<body>
+    <h1>{{ requirement.title }}</h1>
+    <p>{{ requirement.description }}</p>
+    <p><b>Status</b>:{% if requirement.isCompliant %} compliant. {% else %} not compliant. {% endif %}</p>
+    <h2>Documents</h2>
+    <ul>
+        {% for document in documents %}
+        <li>
+            <a href="{% url 'document_detail' document.pk %}">{{ document.title }}</a> - 
+            {% if document.isValidated %}Validated{% else %}Not Validated{% endif %}
+            <form action="{% url 'toggle_validation_status' document.pk %}?req_id={{ requirement.pk }}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Change Validation Status</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'requirement_edit' requirement.pk %}">Edit</a>
+    <a href="{% url 'requirement_delete' requirement.pk %}">Delete</a>
+    <a href="{% url 'requirement_list' %}">Back to list</a>
+</body>
+</html>
