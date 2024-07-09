@@ -38,7 +38,7 @@ This project is a simple web application built with Django for managing requirem
 
 ## Database Structure
 
-This project uses SQLite. The database has the following tables:
+This project uses SQLite. The database is organised as follows.
 
 ### Models
 
